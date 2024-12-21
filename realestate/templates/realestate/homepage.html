@@ -1,0 +1,248 @@
+{% load static %}
+
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+
+    <script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
+      rel="stylesheet"
+    />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<link rel="stylesheet" href="{% static "css/properties3.css" %}" />
+<link rel="stylesheet" href="{% static "css/style.css" %}" />
+    <script src="{% static "js/script3.js" %}" defer></script>
+    <title>Baseta Realestate - Properties</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg mb-3 sticky-top">
+      {% include "realestate/navbar.html" %}
+    </nav>
+    <!-- Search & filters -->
+    <div class="form-group mb-3">
+      <div class="container-xxl d-flex flex-column flex-lg-row gap-1">
+  
+        <!-- Search Form -->
+         <form class="d-flex gap-3 flex-grow-1" role="search" action="{% url "search" %}" method="get">
+         
+            <div class="custom-select">
+
+              <div class="selected">
+                <span class='selected-value' > Sale </span>
+                <span class="selected-arrow" > > </span>
+              </div>
+              <div class="options-container">
+                <div class="option" data-value="sale">Sale</div>
+                <div class="option" data-value="rent">Rent</div>
+            </div>
+
+  <!-- YOU WILL TAKE THE VALUE OF THIS INPUT STANLEY!!!! -->
+  <input type="hidden" name="property-type" id="property-type" value="sale">
+</div>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="bi bi-geo-alt"></i>
+                </span>
+
+                <input
+                  type="search"
+                  class="form-control "
+                  placeholder="City or Neighborhood or Street name"
+                  aria-label="Search"
+                  name="searched"
+                />
+              </div>
+
+              <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        <!-- Filter btn -->
+        
+      </div>
+    </div>
+  
+
+    <!-- Nav -->
+     <div class="container-xxl mb-3">
+
+       <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item">
+          <i class="bi bi-buildings-fill"></i>
+          <a >Baseta Real Estate</a></li>
+         <li class="breadcrumb-item active" aria-current="page">Properties For Sale & Rent</li>
+        </ol>
+      </nav>
+     </div>
+
+     <!-- Content -->
+     <div class="container-xxl">
+      <!-- Content head & filter -->
+     <div class="d-flex flex-column flex-lg-row justify-content-between mb-3 gap-2">
+    <div>
+      <h4>Properties For sale & Rent</h4>
+      <p>We bring to you {{listings.count}} properties suitable for Sale & Rent in different locations that will suit your needs. Feel free to explore all amazing properties!!!</p>
+    </div>
+
+
+     </div>
+
+     <!-- Pagination -->
+     <div class="pagination-container mb-5">
+   
+    <!--{% for listing in pagin %}{% endfor %}-->
+
+    {% for listing in listings %}
+     <!-- Pagination Card -->
+     <div class="card property-card">
+      <!-- User profile -->
+      
+     <!-- Property images -->
+     <div class="splide splide-container ">
+        <div class="splide__track">
+          <ul class="splide__list">
+           <li class="splide__slide property-img"><img src="{{pld.images.url}}" alt=""></li>
+           <li class="splide__slide property-img"><img src="{% static "img/hero-img.jpeg" %}" alt=""></li>
+          </ul>
+        </div>
+     </div>
+   <!-- Property info -->
+     <a href="{% url "property_details" listing.listing_id %}" class="property-info p-3 text-decoration-none c">
+       <h5 class="h5 property-price" >{{listing.price|intcomma}}EGP</h5>
+       <p class="property-details" >{{listing.title|truncatechars:50}}</p>
+       <p class="property-location">
+     <i class="bi bi-geo-alt-fill"></i>
+        <span> {{listing.location}}</span>
+       </p>
+       <div class="property-features d-flex gap-3">
+         <span  >
+         <img src="{% static "img/size.d7862946.svg" %}" alt="">
+           <span>{{listing.area}} &#x33A1;</span>
+         </span>
+         <span>
+         <img src="{% static "img/bedroom.81247afe.svg" %}" alt="">
+           <span>{{listing.beds}}</span>
+           <span>{{listing.slug}}</span>
+         </span>
+         <span>
+         <img src="{% static "img/bathroom.d23f3213.svg" %}" alt="">
+         <span>{{listing.baths}}</span>
+         </span>
+         <span>
+          <span style="color: #ffcd11;">{{listing.property_type}}</span>
+          </span>
+       </div>
+     </a>
+     </div>
+    {% endfor %}
+    
+
+
+
+     
+     </div>
+
+    </div>
+
+    <!-- Pagination Control -->
+
+    {% include "realestate/properties_pagination.html" %}
+
+
+    </div>
+    <br><br><br>
+
+  {% include "realestate/footer.html" %}
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Select all elements with the class 'splide'
+  const sliders = document.querySelectorAll('.splide');
+
+  // Initialize a new Splide instance for each slider
+  sliders.forEach((slider) => {
+    new Splide(slider, {
+      type   : 'loop',
+      perPage: 1,
+      perMove: 1,
+      pagination: true,
+    }).mount();
+  });
+});
+
+ document.addEventListener('DOMContentLoaded', function () {
+      const dropdownItems = document.querySelectorAll('.dropdown-item');
+      const dropdownButton = document.getElementById('dropdownMenuButton');
+
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          const value = this.getAttribute('data-value');
+          dropdownButton.textContent = value;
+        });
+      });
+    });
+
+</script>
+
+
+<script>
+  document.querySelector('.selected').addEventListener('click', function () {
+document.querySelector('.options-container').classList.toggle('show');
+});
+
+document.querySelectorAll('.option').forEach(option => {
+option.addEventListener('click', function () {
+const value = this.getAttribute('data-value');
+const displayText = this.textContent;
+
+// Set the value to hidden input
+document.querySelector('#property-type').value = value;
+
+// Update the selected text
+document.querySelector('.selected-value').textContent = displayText;
+
+// Close the dropdown
+document.querySelector('.options-container').classList.remove('show');
+});
+});
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,227 @@
+{% load static %}
+
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+
+    <script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static "css/style2.css" %}" />
+    <link rel="stylesheet" href="{% static "css/properties3.css" %}" />
+
+    <title>Baseta Realestate - {{profile.user.username}}</title>
+    <style>
+      :root {
+        --color-primary: #ffcd11;
+        --color-secondary: #000000;
+        --color-black: #000000;
+        --color-white: #fff;
+        --color-primary-rgb: 255, 205, 17;
+        --color-secondary-rgb: 0, 0, 0;
+      }
+
+      .profile-picture-container {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 2px solid var(--color-primary);
+      }
+
+      .profile-picture-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: Cover;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg mb-3 sticky-top">
+      {% include "realestate/navbar.html" %}
+    </nav>
+    <main class="container-xxl">
+      <div class="profile-container d-flex flex-column flex-lg-row gap-5 align-items-center mb-5">
+        <div class="profile-picture-container">
+          <img src="{{profile.image.url}}" alt="" />
+        </div>
+
+        <div class="profile-details d-flex flex-column gap-3 ">
+          <div>
+            <span class="h7">Name:</span>
+            <span class="h5">{{profile.user.username}}</span>
+          </div>
+
+          <div>
+            <span class="h7">Phone Number:</span>
+            <span class="h5">(+20){{profile.phone}}</span>
+          </div>
+
+          <div>
+            <span class="h7">About:</span>
+            <span class="h5"
+              >{{profile.about}}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- user property posted -->
+      <h3 class="h3 text-center mb-5">Property published</h3>
+           <!-- Pagination -->
+     <div class="pagination-container mb-5">
+   
+    {% for listing in pagin %}
+     <!-- Pagination Card -->
+     <div class="card property-card">
+      
+     <!-- Property images -->
+     <div class="splide splide-container ">
+       <div class="splide__track">
+         <ul class="splide__list">
+           <li class="splide__slide property-img"><img src="{{listing.image1.url}}" alt=""></li>
+           <li class="splide__slide property-img"><img src="{{listing.image2.url}}" alt=""></li>
+           <li class="splide__slide property-img"><img src="{{listing.image3.url}}" alt=""></li>
+           <li class="splide__slide property-img"><img src="{{listing.image4.url}}" alt=""></li>
+           <li class="splide__slide property-img"><img src="{{listing.image5.url}}" alt=""></li>
+           <li class="splide__slide property-img"><img src="{% static "img/hero-img.jpeg" %}" alt=""></li>
+         </ul>
+       </div>
+     </div>
+   <!-- Property info -->
+     <a href="{% url "details" listing.id %}" class="property-info p-3 text-decoration-none c">
+       <h5 class="h5 property-price" >{{listing.price|intcomma}}EGP</h5>
+       <p class="property-details" >{{listing.title|truncatechars:50}}</p>
+       <p class="property-location">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span> {{listing.location}}</span>
+       </p>
+       <div class="property-features d-flex gap-3">
+         <span  >
+         <img src="{% static "img/size.d7862946.svg" %}" alt="">
+           <span>{{listing.area}} &#x33A1;</span>
+         </span>
+         <span>
+         <img src="{% static "img/bedroom.81247afe.svg" %}" alt="">
+           <span>{{listing.beds}}</span>
+         </span>
+         <span>
+         <img src="{% static "img/bathroom.d23f3213.svg" %}" alt="">
+         <span>{{listing.baths}}</span>
+         </span>
+         <span>
+          <span style="color: #ffcd11;">{{listing.property_type}}</span>
+          </span>
+       </div>
+     </a>
+     </div>
+    {% endfor %}
+     
+     </div>
+
+    </div>
+
+    <!-- Pagination Control -->
+
+    <div class="container-xxl d-flex justify-content-center mb-3 ">
+      
+     <nav aria-label="Page navigation example ">
+     <ul class="pagination">
+
+    {% if pagin.has_previous %}
+
+    <li class="page-item">
+      <a class="page-link" href="?page=1" aria-label="Next">
+        <span aria-hidden="true">First</span>
+      </a>
+    </li>
+
+    <li class="page-item">
+    <a class="page-link" href="?page={{pagin.previous_page_number}}" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+    </li>
+
+    {% endif %}
+
+    {% for num in pagin.paginator.page_range %}
+      {% if pagin.number == num %}
+        <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+      {% elif num > pagin.number|add:'-5' and num < pagin.number|add:'5' %}
+        <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+      {% endif %}
+    {% endfor %}
+
+
+    {% if pagin.has_next %}
+
+    <li class="page-item">
+      <a class="page-link" href="?page={{pagin.next_page_number}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" href="?page={{pagin.paginator.num_pages}}" aria-label="Next">
+        <span aria-hidden="true">Last</span>
+      </a>
+    </li>
+
+    {% endif %}
+     </ul>
+     </nav>
+     
+     
+    </div>
+
+    </main>
+    <br><br>
+
+    {% include "realestate/footer.html" %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Select all elements with the class 'splide'
+        const sliders = document.querySelectorAll(".splide");
+
+        // Initialize a new Splide instance for each slider
+        sliders.forEach((slider) => {
+          new Splide(slider, {
+            type: "loop",
+            perPage: 1,
+            perMove: 1,
+            pagination: true,
+          }).mount();
+        });
+      });
+    </script>
+  </body>
+</html>

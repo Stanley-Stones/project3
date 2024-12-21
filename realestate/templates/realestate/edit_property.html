@@ -1,0 +1,540 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+
+    <script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="properties.css" />
+
+    <title>Document</title>
+    <style>
+      :root {
+        --color-primary: #ffcd11;
+        --color-secondary: #000000;
+        --color-black: #000000;
+        --color-white: #fff;
+        --color-primary-rgb: 255, 205, 17;
+        --color-secondary-rgb: 0, 0, 0;
+      }
+
+      .image-preview img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .image-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        object-fit: cover;
+      }
+
+      textarea:focus {
+        box-shadow: none !important;
+        border-color: var(--color-primary) !important;
+      }
+
+      form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: center;
+      }
+
+      button {
+        grid-column: -2/-1;
+        justify-self: end;
+      }
+
+      @media only screen and (max-width: 991.98px) {
+        form {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          grid-column: 1/-1;
+          justify-self: auto;
+        }
+
+        .image-preview img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      .image-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .img-container {
+        position: relative;
+      }
+
+      .img-container img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: var(--color-secondary);
+        color: var(--color-white);
+        border-radius: 50%;
+      }
+
+      .bi-x-lg {
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg mb-5 sticky-top">
+      <div class="container-xxl">
+        <a class="navbar-brand" href="#">Real Estate CO.</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-search"></i>
+                <span>Search</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="properties.html">Properties</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-globe"></i>
+                <span>Know</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-list-task"></i>
+                <span>List</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-person"></i>
+                <span>User</span>
+              </a>
+              <ul class="dropdown-menu dropdown-user p-3">
+                <h4 class="h4 mb-2">Login</h4>
+                <p>Add ads, notes, favorites and more..</p>
+
+                <div class="d-grid gap-2 mb-3">
+                  <a href="login.html" class="btn btn-primary" role="button">
+                    Login
+                  </a>
+                  <a
+                    href="register.html"
+                    class="btn btn-secondary"
+                    role="button"
+                  >
+                    Sign up
+                  </a>
+                </div>
+                <li><hr class="dropdown-divider" /></li>
+                <p>My Activities</p>
+                <div class="d-grid gap-2 mb-3">
+                  <a
+                    href="#"
+                    class="btn toggle-btn activities-btn"
+                    role="button"
+                    data-bs-toggle="button"
+                  >
+                    <i class="bi bi-heart"></i>
+                    <span>My Favourite</span>
+                  </a>
+                  <a
+                    href="#"
+                    class="btn toggle-btn activities-btn"
+                    role="button"
+                    data-bs-toggle="button"
+                  >
+                    <i class="bi bi-sticky"></i>
+                    <span>My Notes</span>
+                  </a>
+                </div>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <main class="container-xxl">
+      <div class="p h4 text-center mb-5">Add a listing</div>
+
+      <form action="" class="mb-5" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Status -->
+        <div class="mb-3">
+          <label class="form-label"> Property Status:</label>
+
+          <select class="form-select" aria-label="Default select example" name="property_status">
+            <option selected value="{{listing.property_status}}">-- {{listing.property_status}} --</option>
+            <option value="Sale">Sale</option>
+            <option value="Rent">Rent</option>
+            <option value="Lease">Lease</option>
+          </select>
+        </div>
+
+        <!-- Type -->
+        <div class="mb-3">
+          <label class="form-label"> Property Type:</label>
+
+          <select class="form-select" aria-label="Default select example" name="property_type">
+            <option selected value="{{listing.property_type}}">-- {{listing.property_type}} --</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Flat">Flat</option>
+            <option value="Duplex">Duplex</option>
+            <option value="Viila">Viila</option>
+            <option value="Rooftop">Rooftop</option>
+            <option value="Chalet">Chalet</option>
+            <option value="Bungalow">Bungalow</option>
+            <option value="Building">Building</option>
+          </select>
+        </div>
+
+        <!-- Finishing -->
+        <div class="mb-3">
+          <label class="form-label"> Lux Type:</label>
+
+          <select class="form-select" aria-label="Default select example" name="lux_type">
+            <option selected value="{{listing.lux_type}}">-- {{listing.lux_type}} --</option>
+            <option value="Furnished">Furnished</option>
+            <option value="Unfurnished">Unfurnished</option>
+            <option value="semi-furnished">Semi-furnished</option>
+          </select>
+        </div>
+
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label"> Title:</label>
+          <input type="title" class="form-control" name="title" id="title"/ value="{{listing.title}}">
+        </div>
+
+        <!--images  -->
+        <div class="mb-3">
+          <label for="imageUpload" class="form-label">Upload Images:</label>
+          <input
+            class="form-control"
+            type="file"
+            id="imageUpload"
+            accept="image/*"
+            name="images"
+            
+          />
+        </div>
+
+        <!-- images preview -->
+        <div class="mb-3">
+          <label class="form-label">Image Preview:</label>
+          <div class="image-preview" id="imagePreview">
+          {% if listing.images %}
+            <img src="{{listing.images.url}}" alt="" />
+          {% endif %}
+          </div>
+        </div>
+
+        <!-- Area -->
+        <div class="mb-3">
+          <label for="area" class="form-label"> Area:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="area"
+            placeholder=""
+            type="number"
+            name="area"
+            value="{{listing.area}}"
+          />
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+          <label for="price" class="form-label"> Price:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            placeholder=""
+            type="number"
+            name="price"
+            value="{{listing.price}}"
+          />
+        </div>
+
+        <!-- beds -->
+        <div class="mb-3">
+          <label for="beds" class="form-label"> Number of bedrooms:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="beds"
+            placeholder=""
+            type="number"
+            name="number_of_beds"
+            value="{{listing.beds}}"
+          />
+        </div>
+
+        <!-- bath -->
+        <div class="mb-3">
+          <label for="bath" class="form-label"> Number of bathrooms:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="bath"
+            placeholder=""
+            type="number"
+            name="number_of_baths"
+            value="{{listing.baths}}"
+          />
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+          <label class="form-label"> Location:</label>
+
+          <select class="form-select" aria-label="Default select example" name="location">
+            <option selected value="{{listing.location}}">-- {{listing.location}} --</option>
+            <option value="Alexandria">Alexandria</option>
+            <option value="Heliopolis">Heliopolis</option>
+            <option value="Helwan">Helwan</option>
+            <option value="Maadi">Maadi</option>
+            <option value="Nasr city">Nasr city</option>
+          </select>
+        </div>
+
+        <!-- Floor -->
+        <div class="mb-3">
+          <label class="form-label"> Floor:</label>
+
+          <select class="form-select" aria-label="Default select example" name="floor">
+            <option selected value="{{listing.floor}}">-- {{listing.floor}} --</option>
+            <option value="Groundfloor">Groundfloor</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">10+</option>
+            <option value="12">20+</option>
+          </select>
+        </div>
+
+        <!-- Elevator -->
+        <div class="mb-3">
+          <label class="form-label"> Elevator:</label>
+
+          <select class="form-select" aria-label="Default select example" name="elevator">
+            <option selected value="{{listing.elevator}}">-- {{listing.elevator}} --</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <!-- Parking -->
+        <div class="mb-3">
+          <label class="form-label"> Parking slot/Garage:</label>
+
+          <select class="form-select" aria-label="Default select example" name="parking">
+            <option selected value="{{listing.parking}}">-- {{listing.parking}} --</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="phone" class="form-label">Description:</label>
+            <textarea type="textarea" class="form-control" id="phone" placeholder="" name='description'>{{listing.description}}</textarea>
+        </div>
+
+        <button class="btn btn-primary">Update</button>
+      </form>
+    </main>
+
+    <script>
+      const imageUpload = document.getElementById("imageUpload");
+      const imagePreview = document.getElementById("imagePreview");
+      let fileList = [];
+
+      function updateImagePreview() {
+        imagePreview.innerHTML = ""; // Clear previous previews
+
+        fileList.forEach((file, index) => {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            // Create container for image and remove button
+            const imgContainer = document.createElement("div");
+            imgContainer.classList.add("img-container");
+
+            // Create image element
+            const imgElement = document.createElement("img");
+            imgElement.src = e.target.result;
+
+            // Create remove button with icon
+            const removeButton = document.createElement("button");
+            removeButton.classList.add(
+              "btn",
+              "btn-danger",
+              "btn-sm",
+              "remove-btn"
+            );
+            removeButton.innerHTML = '<i class="bi bi-x-lg"></i>'; // Use icon instead of text
+
+            // Add event listener to remove image on click
+            removeButton.addEventListener("click", function () {
+              fileList.splice(index, 1); // Remove the file from the list
+              updateImagePreview(); // Update the preview
+              updateFileInput(); // Update the file input element
+            });
+
+            // Append image and button to container
+            imgContainer.appendChild(imgElement);
+            imgContainer.appendChild(removeButton);
+
+            // Append container to preview
+            imagePreview.appendChild(imgContainer);
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function handleFileInputChange() {
+        const files = Array.from(imageUpload.files);
+        fileList = files; // Update the file list with the new files
+        updateImagePreview(); // Refresh the image previews
+        updateFileInput(); // Update the file input element
+      }
+
+      function updateFileInput() {
+        // Create a new DataTransfer object to manage files
+        const dataTransfer = new DataTransfer();
+
+        // Add the files from fileList to the DataTransfer object
+        fileList.forEach((file) => {
+          dataTransfer.items.add(file);
+        });
+
+        // Update the file input element's files
+        imageUpload.files = dataTransfer.files;
+      }
+
+      imageUpload.addEventListener("change", handleFileInputChange);
+    </script>
+  </body>
+</html>

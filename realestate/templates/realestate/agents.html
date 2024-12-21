@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+
+    <script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+    <link rel="stylesheet" href="{% static "css/properties3.css" %}" />
+    <title>Baseta Realestate - Agents</title>
+    <style>
+      :root {
+        --color-primary: #ffcd11;
+        --color-secondary: #000000;
+        --color-black: #000000;
+        --color-white: #fff;
+        --color-primary-rgb: 255, 205, 17;
+        --color-secondary-rgb: 0, 0, 0;
+      }
+
+      .line {
+        max-width: 100%;
+        width: 80px;
+        height: 1px;
+        background-color: var(--color-secondary);
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+      }
+      .profile-picture-container {
+        overflow: hidden;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+        border-radius: 50%;
+        border: 2px solid var(--color-primary);
+      }
+
+      .profile-picture-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .profile-card {
+        text-decoration: none;
+        color: var(--color-secondary);
+        transition: all 0.3s ease-in;
+      }
+
+      .profile-card:hover {
+        transform: scale(1.1);
+      }
+
+      .page-link {
+        color: var(--color-secondary) !important;
+        box-shadow: none !important;
+      }
+
+      .page-link:focus {
+        color: var(--color-primary) !important;
+      }
+
+      @media only screen and (max-width: 1650px) {
+        main {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .profile-picture-container {
+          width: 250px;
+          height: 250px;
+        }
+      }
+      @media only screen and (max-width: 1250px) {
+        main {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media only screen and (max-width: 750px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        .profile-picture-container {
+          width: 200px;
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg mb-3 sticky-top">
+      {% include "realestate/navbar.html" %}
+    </nav>
+    <!-- team title -->
+    <div class="container-xxl mb-5">
+      <div
+        class="team-header d-flex justify-content-center gap-3 align-items-center"
+      >
+        <div class="line"></div>
+        <p class="h4">Agents/Staffs</p>
+        <div class="line"></div>
+      </div>
+    </div>
+    <!-- Team page -->
+    <main class="container-xxl mb-5">
+
+      {% for agent in pagin %}
+      <a href="{% url "agent_details" agent.id %}" class="profile-card">
+        <div class="profile-picture-container mb-3">
+          <img src="{{agent.image.url}}" alt="Profile picture" />
+        </div>
+
+        <p class="h4 text-center mb-3">{{agent.user.username}}</p>
+
+        <p class="text-center">
+          {{agent.about}}
+        </p>
+      </a>
+      {% endfor %}
+
+
+    </main>
+
+    <div class="container-xxl d-flex justify-content-center mb-3">
+      <nav aria-label="Page navigation example ">
+        <ul class="pagination">
+
+          {% if pagin.has_previous %}
+    
+          <li class="page-item">
+            <a class="page-link" href="?page={{pagin.previous_page_number}}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if pagin.has_next %}
+
+          <li class="page-item">
+            <a class="page-link" href="?page={{pagin.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+{% load static %}
+
+<div class="container-xxl">
+  <a class="navbar-brand" href="{% url "homepage" %}">REALESTATE</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "homepage" %}" role="button" aria-expanded="false">
+          <i class="bi bi-search"></i>
+          <span>Properties</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="" role="button" aria-expanded="false">
+          <i class="bi bi-globe"></i>
+          <span>Egypt</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "agents" %}" role="button" aria-expanded="false">
+          <i class="bi bi-list-task"></i>
+          <span>Agents/Staffs</span>
+        </a> 
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "create_property" %}" role="button" aria-expanded="false">
+          
+          <span class="btn btn-primary">Add</span>
+        </a> 
+      </li>
+      {% endif %}
+
+    </ul>
+    <div
+      class="d-flex gap-2 gap-lg-1 align-items-start align-items-lg-center"
+    >
+     
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle user-icon"
+            
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span>{{request.user.first_name}}</span>
+          </a>
+          <ul class="dropdown-menu dropdown-user p-3">
+            <h4 class="h4 mb-2">Welcome To REALESTATE</h4>
+            
+          {% if user.is_authenticated %}
+
+            <div class="d-grid gap-2 mb-3">
+              <a href="{% url "logout" %}" class="btn btn-primary" role="button">
+                Logout
+              </a>
+            </div>
+
+            <div class="d-grid gap-2 mb-3">
+              <a
+                href="{% url "homepage" %}"
+                class="btn toggle-btn activities-btn"
+                role="button"
+                
+              >
+                <i class="bi bi-book"></i>
+                <span>Profile</span>
+              </a>
+            </div>
+
+          {% else %}
+            <div class="d-grid gap-2 mb-3">
+              <a href="{% url "login" %}" class="btn btn-primary" role="button">
+                Login
+              </a>
+              <a
+                href="{% url "register" %}"
+                class="btn btn-secondary"
+                role="button"
+              >
+                Register
+              </a>
+
+            </div>
+            <li><hr class="dropdown-divider" /></li>
+            
+            {% endif %}
+              <a
+              
+                class="btn toggle-btn activities-btn"
+               
+              >
+                <i class="bi bi-phone"></i>
+                <span>Hotline: 000-000-000</span>
+              </a>
+            </div>
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

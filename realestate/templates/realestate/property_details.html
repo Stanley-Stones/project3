@@ -1,0 +1,448 @@
+{% load static %}
+
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+
+    <script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static "css/style3.css" %}" />
+    <link rel="stylesheet" href="{% static "css/property3.css" %}" />
+    <link rel="stylesheet" href="{% static "css/properties3.css" %}" />
+    <script src="{% static "js/script3.js" %}" defer> </script>
+    <title>BASETA - {{listing.title}}</title>
+   
+  </head>
+  <body>
+    {% comment %} MODAL {% endcomment %}
+    <div id="modal" class="modal">
+      <div class="modal-content-slider">
+          <button class="close" onclick="closeModal()">&times;</button>
+          <div class="popup-slider">
+              <button class="arrow left" onclick="changeSlide(-1)">&#10094;</button>
+              <div class="popupImage-container">
+              <img id="popup-image" src="" alt="" />
+              </div>
+              <button class="arrow right" onclick="changeSlide(1)">&#10095;</button>
+          </div>
+      </div>
+  </div>
+   
+    <!-- Header -->
+    <div class="sticky-top main-nav">
+      <nav class="navbar navbar-expand-lg mb-3">
+        {% include "realestate/navbar.html" %}
+      </nav>
+
+      <!-- Nav -->
+      <div class="container-xxl mb-3 pb-1">
+        <nav
+          style="
+            --bs-breadcrumb-divider: url(
+              &#34;data:image/svg + xml,
+              %3Csvgxmlns='http://www.w3.org/2000/svg'width='8'height='8'%3E%3Cpathd='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z'fill='%236c757d'/%3E%3C/svg%3E&#34;
+            );
+          "
+          aria-label="breadcrumb"
+        >
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <i class="bi bi-buildings-fill"></i>
+              <a >REALESTATE</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <a href="{% url "homepage" %}">Properties</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{listing.title}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Property content -->
+    <div class="container-xxl mb-5">
+      <div id="slider1" class="splide splide-container property-slider mb-3">
+        <div class="splide__track">
+          <ul class="splide__list">
+            <li class="splide__slide property-img">
+              <img src="{{upload.images.url}}" alt=""  class="slider-img" />
+            </li>
+      
+            <li class="splide__slide property-img">
+              <img src="{% static "img/hero-img.jpeg" %}" alt="{{listing.title}}"  class="slider-img" />
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+
+      <div class="property-content gap-2 mb-5">
+        <!-- Content 1 -->
+        <div class="d-grid gap-2">
+          <!-- Card 1 -->
+          <div class="card p-3">
+            <div class="d-flex justify-content-between">
+              <h4 class="h4 mb-3">EGP {{listing.price|intcomma}}</h4>
+              <div class="edit-remove-section">
+                <a class="btn" style="font-weight: bolder;font-size: larger;">COD-{{listing.id}}</a>
+              
+              
+                <a href="{% url "update_property" listing.listing_id %}" class="btn" style="font-weight: bolder;font-size: larger;">Edit<i class="bi bi-pencil"></i></a>
+                <a href="{% url "delete_property" listing.listing_id %}" class="btn" style="font-weight: bolder;font-size: larger;">Delete<i class="bi bi-trash3-fill"></i></a>
+              
+              
+              </div>
+            </div>
+            <p>
+              {{listing.title}}
+            </p>
+            <div>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>{{listing.location.name}}</span>
+                </div>
+
+                <span>{{listing.created_at|date:"F j, Y"}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="card p-3">
+            <h4 class="h4 mb-3">Highlights</h4>
+            <div class="highlights">
+              <!-- highlight -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  width="30"
+                  height="30"
+                  fill="none"
+                  viewBox="0 0 41 40"
+                  class="_5ac567fe"
+                >
+                  <g fill="#ffcd11" clip-path="url(#clip0_5031_12929)">
+                    <path
+                      d="M1.8 18.3v15L3.5 35h8.3v-8.3h3.4V35h8.3l1.7-1.7v-15L13.5 10 1.8 18.3zm20 13.4h-3.3v-8.4h-10v8.4H5.2V20l8.3-6 8.3 6v11.6zm10-20h-3.3V15h3.3v-3.3zm0 6.6h-3.3v3.4h3.3v-3.4zm0 6.7h-3.3v3.3h3.3V25z"
+                    ></path>
+                    <path
+                      d="M16.8 6.6v1.7l3.4 2.4V8.3h15v23.4h-6.7V35h8.3l1.7-1.7V6.7L36.8 5H18.5l-1.7 1.6z"
+                    ></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_5031_12929">
+                      <path fill="#fff" d="M.2 0h40v40H.2z"></path>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <span class="mb-2">Type</span>
+                <strong>{{listing.property_type}}</strong>
+              </div>
+              <!-- highlight -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  class="_5ac567fe"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    fill="#ffcd11"
+                    d="M3 3L2 4v16l1 1h18l1-1V4l-1-1H3zm8 10v6H4v-6h7zm0-8v6H4V5h7zm9 8v6h-7v-6h7zm0-8v6h-7V5h7z"
+                  ></path>
+                </svg>
+                <span class="mb-2">Area &#x33A1;</span>
+                <strong>{{listing.area}}</strong>
+              </div>
+              <!--highlight  -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 14 12"
+                  class="_5ac567fe"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    fill="#ffcd11"
+                    d="M1 .3L.3 1v10.7h1.4v-1.4h10.6v1.4h1.4v-6L13 5H6.3V3.7L5.7 3h-4V1L1 .3zM1.7 5H5v-.7H1.7V5zm0 3.3v-2h10.6V9H1.7v-.7z"
+                  ></path>
+                </svg>
+                <span class="mb-2">Bedrooms</span>
+                <strong>{{listing.beds}}</strong>
+              </div>
+              <!-- highlight  -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  width="30"
+                  height="30"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 14 12"
+                  class="_5ac567fe"
+                >
+                  <path
+                    fill="#ffcd11"
+                    fill-rule="evenodd"
+                    d="M1.7 10h10.6V6.7H1.7V10zM13 5.3H3v-3A1 1 0 1 1 5 2h-.7v1.3H7V2h-.7a2.3 2.3 0 0 0-4.6.3v3H1L.3 6v4.7l.7.6h.7v.7H3v-.7h8v.7h1.3v-.7h.7l.7-.6V6l-.7-.7z"
+                  ></path>
+                </svg>
+                <span class="mb-2">Bathrooms</span>
+                <strong>{{listing.baths}}</strong>
+              </div>
+              <!--highlight  -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  width="30"
+                  height="30"
+                  fill="none"
+                  viewBox="0 0 41 40"
+                  class="_5ac567fe"
+                >
+                  <path
+                    fill="#ffcd11"
+                    d="M7.2 35v-3.3H3.8L2.2 30V15l1.6-1.7h3.4V6.7L8.8 5h23.4l1.6 1.7v6.6h3.4l1.6 1.7v15l-1.6 1.7h-3.4V35h-3.3v-3.3h-20V35H7.2zm-1.7-6.7h30V16.7h-3.3V25H8.8v-8.3H5.5v11.6zm6.7-6.6h16.6V15l1.7-1.7v-5h-20v5l1.7 1.7v6.7z"
+                  ></path>
+                </svg>
+                <span class="mb-2">Furnished</span>
+                <strong>{{listing.furnished}}</strong>
+              </div>
+              <!--highlight  -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  color="#ffcd11"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="1" width="18" height="22" rx="2" ry="2"></rect>
+                  <circle cx="12" cy="8" r="1"></circle>
+                  <path d="M12 16v-6"></path>
+                  <polyline points="8 14 12 18 16 14"></polyline>
+                </svg>
+                <span class="mb-2">Floor Level </span>
+                <strong>{{listing.floor}}</strong>
+              </div>
+              <!--highlight  -->
+              <div class="d-flex flex-column align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  color="#ffcd11"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="1" width="18" height="22" rx="2" ry="2"></rect>
+                  <circle cx="12" cy="8" r="1"></circle>
+                  <path d="M12 16v-6"></path>
+                  <polyline points="8 14 12 18 16 14"></polyline>
+                </svg>
+                <span class="mb-2">Elevator </span>
+                <strong>{{listing.elevator}}</strong>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="card p-3">
+            <h4 class="h4 mb-3">Description</h4>
+            <pre style="font-size: medium;">{{listing.description}}</pre>
+          </div>
+
+          
+                  <!-- Content 2 -->
+        <div class="d-flex flex-column gap-2">
+          <!-- Card 1 -->
+          <div class="card p-3 d-none d-lg-flex">
+            <h4 class="h4 mb-4">Listed by {{profile.user.username}}</h4>
+            <div class="d-flex gap-4 mb-4">
+              <a href="{% url "agent_details"  %}" class="user">
+                <img src="{{profile.image.url}}" alt="{{profile.user.username}}" />
+              </a>
+              <div class="d-flex flex-column">
+                <span>{{profile.user.username}}</span>
+                
+                <a class="profile-link" href="{% url "agent_details"  %}"> See profile </a>
+              </div>
+            </div>
+            <a  class="btn btn-primary"> <b>{{profile.phone}}</b></a>
+          </div>
+          <!-- Card 2 -->
+          <div class="card p-3 d-none d-lg-flex">
+            <h4>Your safety matters to us!</h4><br>
+            <ul>
+              <li>
+                It's advisable to never go alone to meet an agent.
+              </li><br>
+              <li>
+                Check and inspect the apartment properly before purchasing or renting it.
+              </li><br>
+              <li>
+                Never pay in advance or full payment without a written contract or reciept.
+              </li><br>
+              <li>
+                In case of doubts, please make sure to contact the company directly.
+              </li><br>
+              <li>
+                For enquires: <h5>01090009000, 010001000100</h5>
+              </li>
+            </ul>
+          </div>
+
+                    <!-- Card 1 -->
+          <div class="card p-3 d-lg-none">
+            <h4 class="h4 mb-4">Listed by {{profile.user.username}}</h4>
+            <div class="d-flex gap-4 mb-4">
+              <a href="{% url "agent_details"%}" class="user">
+                <img src="{{profile.image.url}}" alt="{{profile.user.username}}" />
+              </a>
+              <div class="d-flex flex-column">
+                <span>{{profile.user.username}}</span>
+                          
+                <a class="profile-link" href="{% url "agent_details" %}"> See profile </a>
+              </div>
+            </div>
+                      <a class="btn btn-primary"><b>{{profile.phone}}</b></a>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card p-3 d-lg-none">
+            <h4>Your safety matters to us!</h4><br>
+            <ul>
+              <li>
+                It's advisable to never go alone to meet an agent.
+              </li><br>
+              <li>
+                Check and inspect the apartment properly before purchasing or renting it.
+              </li><br>
+              <li>
+                Never pay in advance or full payment without a written contract or reciept.
+              </li><br>
+              <li>
+                In case of doubts, please make sure to contact the company directly.
+              </li><br>
+              <li>
+                For enquires: <h5>01090009000, 010001000100</h5>
+              </li>
+            </ul>
+          </div>
+
+          
+          <!-- Card 3 ADV -->
+          <a href="{% url "homepage" %}" class="card p-3 adv" target="_blank">
+            <img src="{% static "assets/backgroundlayout.jpg" %}" alt="" />
+          </a>
+          <!-- Card 4 ADV -->
+          <a href="{% url "homepage" %}" class="card p-3 adv" target="_blank">
+            <img src="{% static "img/hero-img.jpeg" %}" alt="" />
+          </a>
+        </div>
+
+
+          <!-- Card 4 Related ADS -->
+          <div class="card p-3">
+            <h4 class="h4 mb-3">Related Ads</h4>
+            <div id="slider2" class="splide splide2">
+              <div class="splide__track">
+                <ul class="splide__list">
+
+                  {% for q in meat %}
+                  <li class="splide__slide">
+                    <div class="card property-card w-200 property-related">
+                      <!-- User profile -->
+                      
+                      <!-- Property images -->
+                      <div class="property-img">
+                        <img src="{{q.image1.url}}" alt="" />
+                      </div>
+                      <!-- Property info -->
+                      <a
+                        href="{% url "details" q.id %}"
+                        class="property-info p-3 text-decoration-none c"
+                      >
+                        <h5 class="h5 property-price">{{q.price|intcomma}}</h5>
+                        <p class="property-details">
+                          {{q.title|truncatechars:35}}
+                        </p>
+                        <p class="property-location">
+                          <i class="bi bi-geo-alt-fill"></i>
+                          <span> {{q.location.name}}</span>
+                        </p>
+                        <div class="property-features d-flex gap-3">
+                          <span>
+                            <img src="{% static "img/size.d7862946.svg" %}" alt="" />
+                            <span>{{q.area}} &#x33A1;</span>
+                          </span>
+                          <span>
+                            <img src="{% static "img/bedroom.81247afe.svg" %}" alt="" />
+                            <span>{{q.beds}}</span>
+                          </span>
+                          <span>
+                            <img src="{% static "img/bathroom.d23f3213.svg" %}" alt="" />
+                            <span>{{q.baths}}</span>
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  {% endfor %}
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    {% include "realestate/footer.html" %}
+
+  
+
+  </body>
+</html>

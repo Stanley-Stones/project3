@@ -1,0 +1,166 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    />
+
+    <script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login-register.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <div class="py-4 px-3 px-lg-5 d-flex flex-column gap-5">
+        <h2 class="h2 logo-main">Real Estate Logo</h2>
+        <div class="d-flex flex-column h-100 justify-content-center">
+          <h2 class="h2 mb-5 fw-bold logo2">Register</h2>
+
+          <form action="" class="" method="post">
+            {% csrf_token %}
+
+            {% for message in messages %}
+              {{message}}
+            {% endfor %}
+
+            <div class="mb-4">
+              <label for="exampleFormControlInput1" class="form-label h5"
+                >First Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter your first name"
+                required
+                name="firstname"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="exampleFormControlInput1" class="form-label h5"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Enter your last name"
+                required
+                name="lastname"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="exampleFormControlInput2" class="form-label h5"
+                >Email
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="exampleFormControlInput2"
+                placeholder="Enter your email"
+                required
+                name="email"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="exampleFormControlInput3" class="form-label h5"
+                >Phone Number</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput3"
+                placeholder="Enter your phone number"
+                required
+                name="phone_number"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="exampleFormControlInput4" class="form-label h5"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleFormControlInput4"
+                placeholder="Enter your password"
+                required
+                name="pass1"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="exampleFormControlInput4" class="form-label h5"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleFormControlInput4"
+                placeholder="Confirm your password"
+                required
+                name="pass2"
+              />
+            </div>
+            
+            <div class="mb-4">
+              <label for="exampleFormControlInput4" class="form-label h5"
+                >Passcode</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleFormControlInput4"
+                placeholder="Enter Passcode"
+                required
+                name="passcode"
+              />
+            </div>
+
+            <button class="btn btn-primary w-100 mb-2">Register</button>
+            <span class="switch">
+              Have an account?
+              <a href="{% url "login" %}">Login</a>
+            </span>
+          </form>
+        </div>
+      </div>
+      <div class="main-img">
+        <img src="hero-img.jpeg" alt="" />
+      </div>
+    </main>
+  </body>
+</html>
